@@ -1,0 +1,35 @@
+
+.data-row-container {
+    display: flex;
+    flex-direction: row;
+    gap : 10px;
+    margin-left: 10px;
+}
+
+
+.data-row-content {
+    border-bottom: 1px solid var(--grey);
+    width: 75%;
+}
+
+.content-text {
+    font-family: 'Inconsolata', monospace;
+    font-weight: 300;
+}
+
+.label-text {
+    font-family: 'Inconsolata', monospace;
+    font-weight: 600;
+}
+
+.data-input {
+    width: 75%;
+}
+
+.data-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+

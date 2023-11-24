@@ -1,0 +1,10 @@
+.toggle-container {
+  display: flex;
+  align-items: center; /* Aligns items vertically in the center */
+  justify-content: center; /* Aligns items to the start of the container */
+  margin-top: 10px;
+}
+
+.toggle {
+  margin-right: 0.5em; /* Adds some space between the checkbox and the label */
+}

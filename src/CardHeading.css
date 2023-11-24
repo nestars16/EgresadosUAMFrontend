@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Poppins:wght@300&display=swap');
+@import './variables.css';
+
+.card-heading {
+    text-align: left;
+    margin-left : 10px;
+    font-family: 'Poppins', sans-serif;
+    color : var(--uam-blue-secondary);
+}
+
+.separator {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0,153,168, 0), rgba(75,160,186, 0.75), rgba(0, 0, 0, 0));
+}
+

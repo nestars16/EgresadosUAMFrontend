@@ -1,0 +1,11 @@
+.logo-uam {
+    padding-top : 20%;
+}
+
+.log-in {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 45px 0px;
+}

@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+@import './variables.css';
+
+.image-container {
+    width: 50%; /* Adjust this value to change the size of the container */
+    margin: 0 auto; /* Horizontally center the container */
+    text-align: center;
+    padding: 10px;
+}
+
+.image-container img {
+    max-width: 100%; /* Ensure the image does not exceed the container width */
+    height: auto; 
+}
+
+.heading {
+    font-family: Inter;
+}
+
+.action-button{
+    display: block;
+    margin: auto;
+    font-weight: bold;
+    font-size: 0.92rem;
+    border-radius: 4px;
+    padding: 0 1rem;
+    height: 36px;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    background-color: var(--uam-blue-secondary);
+    color : var(--white);
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    border : none;
+    position: relative;
+}
+
+.action-button:active{
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+.action-button:hover {
+    background-color: var(--uam-blue);
+    transition: background-color, color 1s ease-in-out;
+}
+
+.form-field {
+    padding : 10px;
+    outline: none;
+    border-radius: 10px;
+    border: solid 1px;
+    color: black;
+    border-color: var(--grey);
+    background-color: var(--white);
+}
+
+.submit-button {
+    margin : 10px auto;
+    min-width: 25%;
+    background-color: var(--green);
+    color : var(--white);
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color : var(--grey);
+    min-width: 90%;
+}

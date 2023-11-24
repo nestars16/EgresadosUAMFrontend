@@ -1,0 +1,33 @@
+@import './variables.css';
+/* General styles for the Q&A section */
+.form-questions {
+    font-family: Arial, sans-serif;
+    color: #333;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Styling for questions (h2) */
+.form-questions h2 {
+    color: var(--uam-blue); /* A nice blue color for questions */
+    font-size: 1.5em; /* Slightly larger font size */
+    margin-bottom: 10px; /* Space below the question */
+    padding-left: 10px; /* Padding for visual appeal */
+    border-left: 4px solid var(--uam-blue-secondary); /* A left border for emphasis */
+}
+
+/* Styling for answers (li) */
+.form-questions li {
+    background-color: var(--grey); /* Light grey background for answers */
+    margin-bottom: 5px; /* Space between answers */
+    padding: 10px; /* Padding inside each answer */
+    border-radius: 5px; /* Rounded corners */
+    list-style-type: none; /* No bullet points */
+}
+
+/* Additional styles to enhance readability */
+.form-questions ul {
+    padding-left: 0; /* Remove default padding */
+    margin-top: 0; /* Adjust spacing */
+}

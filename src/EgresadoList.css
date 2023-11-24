@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Poppins:wght@300&display=swap');
+
+#egresado-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#egresado-table th, #egresado-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#egresado-table th {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f2f2f2;
+}
+
+#egresado-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#egresado-table tr:hover {
+    background-color: #ddd;
+}

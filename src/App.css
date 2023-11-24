@@ -1,0 +1,18 @@
+@import './variables.css';
+
+* {
+    box-sizing: content-box;
+}
+
+html,body{
+    margin: 0;
+    background: linear-gradient(90deg, var(--uam-blue), var(--uam-blue-secondary));
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    flex-direction:column ;
+    align-content: center;
+    align-items: center;
+}
