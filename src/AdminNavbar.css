@@ -1,0 +1,40 @@
+@import './variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+
+.navbar {
+    width: 100%;
+}
+
+.navbar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(var(--white),var(--grey));
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+}
+
+
+.navbar li{
+    padding: 0px 10px;
+    display: inline;
+}
+
+.navbar li > a{
+    width: 100%;
+    padding: 10px 10px;
+    font-size: 2rem;
+    font-family: 'Jost', sans-serif;
+    text-decoration: none;
+}
+
+.navbar li > a:hover{
+    background-color: var(--grey);
+}
+
+.navbar li > a:visited {
+    color : inherit;
+    text-decoration: none;
+}

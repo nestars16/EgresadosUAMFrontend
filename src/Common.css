@@ -35,6 +35,7 @@
     transition: background 0.3s;
     border : none;
     position: relative;
+    margin-top: 10px;
 }
 
 .action-button:active{

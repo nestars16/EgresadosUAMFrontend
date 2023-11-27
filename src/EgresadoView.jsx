@@ -3,10 +3,14 @@ import "./EgresadoView.css"
 import "./Common.css"
 import MultipleEntry from "./MultipleEntry"
 import {useEffect, useState} from 'react'
+import { useLoaderData } from "react-router-dom"
 import { API_URL , clearField } from "./globals"
 import CardHeading from "./CardHeading"
 import DataRow from "./DataRow"
 import DataInputRow from "./DataInputRow"
+import UserNavbar from './UserNavbar'
+import AdminNavbar from "./AdminNavbar"
+import LogOutButton from "./LogOutButton"
 
 
 //TODO input fields for number and email
@@ -40,35 +44,34 @@ const JobInfo = ({header, hasEndDate, startDate, endDate, cargo, isReadOnly, id,
         )
 }
 
-const EgresadoView = ({id}) => {
+const getEgresado = async (id) => {
+    try {
+        const response = await fetch(`${API_URL}/egresado/getById?id=${id}`);
+        return await response.json();
+    } catch (error) {
+        return null;
+    }
+}
 
+export async function egresadoLoader({params}) {
+    const egresado = await getEgresado(params.egresadoId);
+    return  egresado ;
+}
+
+export const EgresadoView = ({isAdmin}) => {
+
+    const egresadoData = useLoaderData();
     const [userData, setUserData] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
     const [shouldSave, setShouldSave] = useState(false);
 
+    const getLastElemOfArray = (arr) => {
+
+    }
+    
     useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            try {
-                const response = await fetch(`${API_URL}/egresado/getById?id=${id}`);
-                const data = await response.json();
-                setUserData(data);
-                setUserData(prevUserData => (
-                    {
-                        ...prevUserData,
-                        id : id
-                    }
-                ))
-
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setIsLoading(false);
-            }
-      };
-
-      fetchData();
-    }, [id]);
+        setUserData(egresadoData)
+      
+    }, []);
 
     useEffect(() => {
         const saveEgresado = async () => {
@@ -185,15 +188,16 @@ const EgresadoView = ({id}) => {
         updateCurrentJob()
     }
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-        
     if (!userData) {
         return <div>No data available</div>;
     }
 
     return (
+        <>
+        {
+            isAdmin ? <AdminNavbar/> :
+            <UserNavbar/>
+        }
         <ContentContainer className="main-container">
             <ContentContainer className="sub-container">
                 <CardHeading>Datos personales</CardHeading>
@@ -239,6 +243,8 @@ const EgresadoView = ({id}) => {
             </ContentContainer>
             <button className="action-button submit-button save-button" onClick={handleSave}>💾</button>
         </ContentContainer>
+        <LogOutButton isAdmin={isAdmin}/>
+        </>
     )
 }
 

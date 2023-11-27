@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Common.css"
 import "./MultipleEntry.css"
 
-const MultipleEntry = ({ children, buttonClassName }) => {
+const MultipleEntry = ({children, buttonClassName}) => {
     const [formQuestionsCount, setFormQuestionsCount] = useState(1);
 
     const addFormQuestion = () => {
@@ -14,7 +14,7 @@ const MultipleEntry = ({ children, buttonClassName }) => {
             {[...Array(formQuestionsCount)].map((_, index) => (
                 <React.Fragment key={index}>
                     {React.Children.map(children, child => 
-                        child && React.cloneElement(child, { key: index })
+                        child && React.cloneElement(child, { key: index , index})
                     )}
                 </React.Fragment>
             ))}

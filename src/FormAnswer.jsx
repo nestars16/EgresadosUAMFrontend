@@ -1,9 +1,11 @@
-import {useState, useEffect} from "react"
-import { API_URL } from "./globals"
 import ContentContainer from './ContentContainer'
 import CardHeading from "./CardHeading"
 import "./FormView.css"
 import "./Common.css"
+import { useLoaderData } from 'react-router-dom'
+import { API_URL } from './globals'
+import { getEgresadoIdFromCookie } from './UserNavbar'
+import { useNavigate } from 'react-router-dom'
 
 
 const QuestionInput = ({question}) => {
@@ -14,7 +16,7 @@ const QuestionInput = ({question}) => {
         return(
             <div className="form-card">
                 <CardHeading>{question.question}</CardHeading>
-                <textarea className="form-field"></textarea>
+                <textarea name={question.question}className="form-field"></textarea>
             </div>
         )
     }
@@ -24,7 +26,7 @@ const QuestionInput = ({question}) => {
                 <CardHeading>{question.question}</CardHeading>
                     {
                         question.possible_answers.map((answerChoice, index) => 
-                            <div>
+                            <div key={index}>
                                 <label htmlFor={`q${index}`}>{answerChoice}</label>
                                 <input id={`q${index}`} type="radio" name={question.question} value={answerChoice}/>
                             </div>
@@ -35,29 +37,43 @@ const QuestionInput = ({question}) => {
 
 }
 
-const FormAnswer = ({id}) => {
+const FormAnswer = () => {
 
-    const [formInfo, setFormInfo] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
+    const formInfo = useLoaderData();
+    const navigate = useNavigate();
 
-    useEffect(() =>{
-        const fetchFormInfo = async () => {
-            try {
-                const response = await fetch(`${API_URL}/form/getById?id=${id}`);
-                const data = await response.json();
-                setFormInfo(data)
-            }catch(error) {
-                console.error("Failed to load form data", error)
-            }finally {
-                setIsLoading(false)
-            }
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        
+        try {
+            const formResponse = await fetch(`${API_URL}/form/getById?id=${formInfo.id}`);
+            const form = await formResponse.json();
+            const formData = new FormData(e.target);
+
+            form["questions"].forEach((question, index)=> {
+                for(const key of formData.keys()) {
+                    if(question.question === key) {
+                        form["questions"][index]["answers"] = [...form["questions"][index]["answers"], ...formData.getAll(key)]
+                    }
+                }
+            })
+
+            form["answersCollectedFrom"].push(getEgresadoIdFromCookie(document.cookie))
+
+            await fetch(`${API_URL}/form/save`, {
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify(form)
+            });
+
+            navigate("/form_list");
+
+        }catch(error) {
+            console.error(error);
         }
-        setIsLoading(true)
-        fetchFormInfo()
-    },[])
 
-    if(isLoading) {
-        return <div>Loading...</div>
     }
 
     if(!formInfo) {
@@ -66,10 +82,10 @@ const FormAnswer = ({id}) => {
 
     return (
         <ContentContainer>
-            <form>
+            <form onSubmit={handleSubmit}>
                 {
                     formInfo.questions.map((question ,index)=> 
-                        <QuestionInput key={index}question={question}/>
+                        <QuestionInput key={index} question={question}/>
                     ) 
                 }
                 <input type="submit" className="action-button submit-button" value="Enviar"/>
