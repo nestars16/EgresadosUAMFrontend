@@ -85,6 +85,30 @@ const EgresadoList = () => {
         }
     }
 
+    const handleApproveAll = async () => {
+
+        const unapproved = egresados.filter(egresado => !egresado.aprobado);
+        const unapprovedIds = unapproved.map(egresado => egresado.id);
+        console.log(unapprovedIds);
+
+        try {
+            await fetch(`${API_URL}/egresado/approveAll`, {
+                method : "POST",
+                headers :{
+                    "Content-Type" : "application/json"
+                }, 
+                body : JSON.stringify(unapprovedIds)
+            });
+
+            window.location.reload(false);
+            
+        } catch(error){
+            console.error(error);
+        }
+
+
+    }
+
     return (
         <>
         <AdminNavbar/>
@@ -135,6 +159,10 @@ const EgresadoList = () => {
             </table>
         </ContentContainer>
         <ToggleSwitch onToggle={handleToggle} isChecked={notApprovedView}/>
+        {
+            !notApprovedView &&
+            <button className="action-button submit-button" onClick={handleApproveAll}>Aprobar a todos</button> 
+        }
         <LogOutButton isAdmin={true}></LogOutButton>
         </>
     )
